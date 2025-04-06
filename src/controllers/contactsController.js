@@ -4,18 +4,14 @@ import { createContact } from '../services/contactsService.js';
 import { updateContactById } from '../services/contactsService.js';
 import { deleteContactById } from '../services/contactsService.js';
 
-export const handleGetAllContacts = async (req, res, next) => {
-  try {
-    const contacts = await getAllContacts();
+export const handleGetAllContacts = async (req, res) => {
+  const paginated = await getAllContacts(req.query);
 
-    res.status(200).json({
-      status: 200,
-      message: 'Successfully found contacts!',
-      data: contacts,
-    });
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully found contacts!',
+    data: paginated,
+  });
 };
 
 export const handleGetContactById = async (req, res, next) => {

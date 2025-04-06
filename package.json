@@ -88,6 +88,7 @@
     "is-number": "^7.0.0",
     "is-promise": "^4.0.0",
     "isexe": "^2.0.0",
+    "joi": "^17.13.3",
     "js-yaml": "^4.1.0",
     "json-buffer": "^3.0.1",
     "json-schema-traverse": "^0.4.1",
