@@ -9,7 +9,8 @@
   "http-errors": "^2.0.0",
   "mongoose": "^7.0.4",
   "morgan": "^1.10.0",
-  "cors": "^2.8.5"
+  "cors": "^2.8.5",
+  "pino-http": "^9.0.0"
 },
   
   "devDependencies": {
