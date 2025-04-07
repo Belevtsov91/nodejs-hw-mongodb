@@ -1,5 +1,3 @@
-
-
 import { Router } from 'express';
 import {
   handleGetAllContacts,
@@ -9,10 +7,9 @@ import {
   handleDeleteContact,
 } from '../controllers/contactsController.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
-
+import { authenticate } from '../middlewares/authenticate.js';
 import {
   createContactSchema,
   updateContactSchema,
@@ -21,11 +18,11 @@ import {
 const contactsRouter = Router();
 
 
+contactsRouter.use(authenticate);
+
 contactsRouter.get('/', ctrlWrapper(handleGetAllContacts));
 
-
 contactsRouter.get('/:contactId', isValidId, ctrlWrapper(handleGetContactById));
-
 
 contactsRouter.post(
   '/',
@@ -33,14 +30,12 @@ contactsRouter.post(
   ctrlWrapper(handleCreateContact)
 );
 
-
 contactsRouter.patch(
   '/:contactId',
   isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(handleUpdateContact)
 );
-
 
 contactsRouter.delete('/:contactId', isValidId, ctrlWrapper(handleDeleteContact));
 
