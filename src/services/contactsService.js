@@ -13,7 +13,7 @@ export const getAllContacts = async (userId, query) => {
 
   const skip = (page - 1) * perPage;
 
-  // Обов'язковий фільтр за userId
+  
   const filter = { userId };
 
   if (type) filter.contactType = type;
