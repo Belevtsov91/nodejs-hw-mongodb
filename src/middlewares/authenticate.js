@@ -18,7 +18,7 @@ export const authenticate = async (req, res, next) => {
     try {
       payload = jwt.verify(token, ACCESS_SECRET);
     } catch {
-      // Без параметра помилки — ESLint не лається
+      
       throw createHttpError(401, 'Access token expired');
     }
 
