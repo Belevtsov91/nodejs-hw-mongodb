@@ -1,3 +1,7 @@
+import fs from 'fs/promises';
+import path from 'path';
+import cloudinary from '../utils/cloudinary.js';
+
 import {
   getAllContacts,
   getContactById,
@@ -41,10 +45,16 @@ export const handleGetContactById = async (req, res, next) => {
 
 export const handleCreateContact = async (req, res, next) => {
   try {
-    
-    console.log('📸 req.file:', req.file); // fixing
+    let photo = null;
 
-    const photo = req.file?.path || null;
+    if (req.file) {
+      const filePath = path.resolve(req.file.path);
+      const result = await cloudinary.uploader.upload(filePath, {
+        folder: 'contacts',
+      });
+      photo = result.secure_url;
+      await fs.unlink(filePath); 
+    }
 
     const newContact = await createContact(req.user._id, {
       ...req.body,
@@ -57,7 +67,7 @@ export const handleCreateContact = async (req, res, next) => {
       data: newContact,
     });
   } catch (error) {
-    console.error('❌ handleCreateContact error:', error); // fixing
+    console.error('❌ handleCreateContact error:', error);
     next(error);
   }
 };
@@ -65,7 +75,17 @@ export const handleCreateContact = async (req, res, next) => {
 export const handleUpdateContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const photo = req.file?.path;
+
+    let photo;
+    if (req.file) {
+      const filePath = path.resolve(req.file.path);
+      const result = await cloudinary.uploader.upload(filePath, {
+        folder: 'contacts',
+      });
+      photo = result.secure_url;
+      await fs.unlink(filePath);
+    }
+
     const updateData = photo ? { ...req.body, photo } : req.body;
 
     const updatedContact = await updateContactById(
@@ -80,6 +100,7 @@ export const handleUpdateContact = async (req, res, next) => {
       data: updatedContact,
     });
   } catch (error) {
+    console.error('❌ handleUpdateContact error:', error);
     next(error);
   }
 };
