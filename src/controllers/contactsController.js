@@ -41,7 +41,11 @@ export const handleGetContactById = async (req, res, next) => {
 
 export const handleCreateContact = async (req, res, next) => {
   try {
-    const newContact = await createContact(req.user._id, req.body);
+    const photo = req.file?.path || null;
+    const newContact = await createContact(req.user._id, {
+      ...req.body,
+      photo,
+    });
 
     res.status(201).json({
       status: 201,
@@ -56,7 +60,14 @@ export const handleCreateContact = async (req, res, next) => {
 export const handleUpdateContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const updatedContact = await updateContactById(req.user._id, contactId, req.body);
+    const photo = req.file?.path;
+    const updateData = photo ? { ...req.body, photo } : req.body;
+
+    const updatedContact = await updateContactById(
+      req.user._id,
+      contactId,
+      updateData
+    );
 
     res.status(200).json({
       status: 200,
