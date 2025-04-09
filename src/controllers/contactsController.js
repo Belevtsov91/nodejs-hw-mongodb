@@ -41,10 +41,11 @@ export const handleGetContactById = async (req, res, next) => {
 
 export const handleCreateContact = async (req, res, next) => {
   try {
-
-    console.log('📸 req.file:', req.file); // проверка
+    
+    console.log('📸 req.file:', req.file); // fixing
 
     const photo = req.file?.path || null;
+
     const newContact = await createContact(req.user._id, {
       ...req.body,
       photo,
@@ -56,6 +57,7 @@ export const handleCreateContact = async (req, res, next) => {
       data: newContact,
     });
   } catch (error) {
+    console.error('❌ handleCreateContact error:', error); // fixing
     next(error);
   }
 };
