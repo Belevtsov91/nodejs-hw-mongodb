@@ -27,6 +27,11 @@ contactsRouter.get('/:contactId', isValidId, ctrlWrapper(handleGetContactById));
 
 contactsRouter.post(
   '/',
+  (req, res, next) => {
+    console.log('🧪 req.body:', req.body); // debug
+    console.log('🧪 req.file:', req.file); // debug
+    next();
+  },
   upload.single('photo'), 
   validateBody(createContactSchema),
   ctrlWrapper(handleCreateContact)
