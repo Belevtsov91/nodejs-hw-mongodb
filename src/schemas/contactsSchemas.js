@@ -1,4 +1,3 @@
-
 import Joi from 'joi';
 
 export const createContactSchema = Joi.object({
@@ -7,6 +6,7 @@ export const createContactSchema = Joi.object({
   email: Joi.string().email().min(3).max(30).allow(null),
   isFavourite: Joi.boolean().optional(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
+  photo: Joi.string().optional(), 
 });
 
 export const updateContactSchema = Joi.object({
@@ -15,4 +15,5 @@ export const updateContactSchema = Joi.object({
   email: Joi.string().email().min(3).max(30).allow(null),
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
+  photo: Joi.string().optional(), 
 }).min(1);
