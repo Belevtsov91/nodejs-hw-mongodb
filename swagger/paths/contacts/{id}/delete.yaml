@@ -1,0 +1,29 @@
+tags:
+  - Contacts
+summary: Delete contact by ID
+operationId: deleteContactById
+description: Delete a contact by its ID. Requires authentication via Bearer token.
+security:
+  - bearerAuth: []
+parameters:
+  - name: contactId
+    in: path
+    required: true
+    description: ID of the contact to delete
+    schema:
+      type: string
+responses:
+  '204':
+    description: Contact successfully deleted (no content returned)
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/Error.yaml
+  '404':
+    description: Contact not found
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/Error.yaml

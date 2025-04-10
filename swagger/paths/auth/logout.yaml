@@ -1,0 +1,19 @@
+
+
+post:
+  tags:
+    - Auth
+  summary: Logout the user
+  operationId: logoutUser
+  description: Logs the user out by deleting their session.
+  security:
+    - bearerAuth: []
+  responses:
+    '204':
+      description: Successfully logged out. No content returned.
+    '401':
+      description: Session not found or user unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Error.yaml

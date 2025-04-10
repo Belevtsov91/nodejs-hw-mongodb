@@ -1,0 +1,65 @@
+tags:
+  - Contacts
+summary: Update a contact by ID
+operationId: updateContact
+description: Update an existing contact. Requires authentication and optionally accepts a new photo.
+security:
+  - bearerAuth: []
+parameters:
+  - name: contactId
+    in: path
+    required: true
+    description: ID of the contact to update
+    schema:
+      type: string
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            example: Jane Doe
+          phoneNumber:
+            type: string
+            example: +380123456789
+          email:
+            type: string
+            example: jane@example.com
+          contactType:
+            type: string
+            enum: [work, home, personal]
+            example: personal
+          isFavourite:
+            type: boolean
+            example: false
+          photo:
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Contact updated successfully
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/Contact.yaml
+  '400':
+    description: Invalid input
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/Error.yaml
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/Error.yaml
+  '404':
+    description: Contact not found
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/Error.yaml

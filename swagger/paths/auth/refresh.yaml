@@ -1,0 +1,34 @@
+post:
+  tags:
+    - Auth
+  summary: Refresh session tokens
+  operationId: refreshTokens
+  description: Generates new access and refresh tokens using a valid refresh token (from HTTP-only cookie).
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: Tokens refreshed successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: Successfully refreshed a session!
+              data:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: your.jwt.access.token.here
+    '401':
+      description: Invalid or missing refresh token
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Error.yaml

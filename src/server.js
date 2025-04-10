@@ -8,6 +8,15 @@ import contactsRouter from './routers/contactsRouter.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
+import swaggerUi from 'swagger-ui-express';
+
+import fs from 'fs';
+import path from 'path';
+
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(path.resolve('docs/swagger.json'), 'utf-8')
+);
+
 export const setupServer = () => {
   const app = express();
 
@@ -18,7 +27,8 @@ export const setupServer = () => {
   
   app.use(cookieParser());
 
-  
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
   app.use('/auth', authRouter);
 
   
