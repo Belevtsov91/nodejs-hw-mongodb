@@ -15,6 +15,7 @@ import {
   handleRefresh,
   handleSendResetEmail,
   handleResetPassword,
+  handleLogout,
 } from '../controllers/authController.js';
 
 const authRouter = Router();
@@ -32,6 +33,8 @@ authRouter.post(
 );
 
 authRouter.post('/refresh', ctrlWrapper(handleRefresh));
+
+authRouter.post('/logout', ctrlWrapper(handleLogout));
 
 authRouter.post(
   '/send-reset-email',
