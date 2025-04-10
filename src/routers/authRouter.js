@@ -8,6 +8,7 @@ import { handleRegister } from '../controllers/authController.js';
 import { handleLogin } from '../controllers/authController.js';
 import { loginUserSchema } from '../validationSchemas/userSchemas.js';
 import { handleRefresh } from '../controllers/authController.js';
+import { handleLogout } from '../controllers/authController.js';
 
 const authRouter = Router();
 
@@ -24,5 +25,7 @@ authRouter.post(
 );
 
 authRouter.post('/refresh', ctrlWrapper(handleRefresh));
+
+authRouter.post('/logout', ctrlWrapper(handleLogout));
 
 export default authRouter;
