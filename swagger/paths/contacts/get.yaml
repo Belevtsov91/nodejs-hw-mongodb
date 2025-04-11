@@ -13,12 +13,12 @@ parameters:
       type: integer
       default: 1
     description: Page number for pagination
-  - name: limit
+  - name: perPage
     in: query
     required: false
     schema:
       type: integer
-      default: 20
+      default: 10
     description: Number of contacts per page
   - name: sortBy
     in: query
@@ -40,6 +40,7 @@ parameters:
     schema:
       type: string
     description: Fields to include in response, separated by |
+
 responses:
   '200':
     description: List of contacts
@@ -57,19 +58,29 @@ responses:
             data:
               type: object
               properties:
-                total:
-                  type: integer
-                  example: 100
-                limit:
-                  type: integer
-                  example: 20
-                page:
-                  type: integer
-                  example: 1
-                contacts:
+                data:
                   type: array
                   items:
                     $ref: ../../components/schemas/Contact.yaml
+                page:
+                  type: integer
+                  example: 1
+                perPage:
+                  type: integer
+                  example: 10
+                totalItems:
+                  type: integer
+                  example: 2
+                totalPages:
+                  type: integer
+                  example: 1
+                hasPreviousPage:
+                  type: boolean
+                  example: false
+                hasNextPage:
+                  type: boolean
+                  example: false
+
   '401':
     description: Unauthorized
     content:

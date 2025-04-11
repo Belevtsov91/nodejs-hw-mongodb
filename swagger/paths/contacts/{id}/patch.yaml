@@ -12,6 +12,7 @@ parameters:
     description: ID of the contact to update
     schema:
       type: string
+
 requestBody:
   required: true
   content:
@@ -38,25 +39,43 @@ requestBody:
           photo:
             type: string
             format: binary
+
 responses:
   '200':
     description: Contact updated successfully
     content:
       application/json:
         schema:
-          $ref: ../../../components/schemas/Contact.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated contact!
+            data:
+              $ref: ../../../components/schemas/Contact.yaml
+
   '400':
-    description: Invalid input
+    description: Invalid input (e.g. unsupported photo file format)
     content:
       application/json:
         schema:
-          $ref: ../../../components/schemas/Error.yaml
-  '401':
-    description: Unauthorized
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/schemas/Error.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Invalid file format. Only .jpg, .png are allowed.
+            data:
+              anyOf:
+                - type: string
+                - type: "null"
+              example: null
+
   '404':
     description: Contact not found
     content:

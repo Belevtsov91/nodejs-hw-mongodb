@@ -17,8 +17,7 @@ tags:
     description: Операції авторизації
 
 servers:
-  - url: http://localhost:3000
-    description: Localhost for development
+  
   - url: https://nodejs-hw-mongodb-73n3.onrender.com
     description: Production server (Render)
 

@@ -15,12 +15,12 @@ parameters:
 responses:
   '204':
     description: Contact successfully deleted (no content returned)
-  '401':
-    description: Unauthorized
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/schemas/Error.yaml
+  #'401':
+    #description: Unauthorized
+    #content:
+      #application/json:
+        #schema:
+          #$ref: ../../../components/schemas/Error.yaml
   '404':
     description: Contact not found
     content:

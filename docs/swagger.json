@@ -11,10 +11,6 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000",
-      "description": "Localhost for development"
-    },
-    {
       "url": "https://nodejs-hw-mongodb-73n3.onrender.com",
       "description": "Production server (Render)"
     }
@@ -55,12 +51,12 @@
             "description": "Page number for pagination"
           },
           {
-            "name": "limit",
+            "name": "perPage",
             "in": "query",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 20
+              "default": 10
             },
             "description": "Number of contacts per page"
           },
@@ -121,23 +117,35 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "total": {
-                          "type": "integer",
-                          "example": 100
-                        },
-                        "limit": {
-                          "type": "integer",
-                          "example": 20
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Contact"
+                          }
                         },
                         "page": {
                           "type": "integer",
                           "example": 1
                         },
-                        "contacts": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/Contact"
-                          }
+                        "perPage": {
+                          "type": "integer",
+                          "example": 10
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
                         }
                       }
                     }
@@ -217,17 +225,92 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created a contact!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "67f9804898a56efa02270d3a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Contact 1"
+                        },
+                        "phoneNumber": {
+                          "type": "string",
+                          "example": "+123456789"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "contact1@example.com"
+                        },
+                        "isFavourite": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "contactType": {
+                          "type": "string",
+                          "example": "personal"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "67f97efa98a56efa02270d2e"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dftkswewg/image/upload/v1744404552/contacts/zx0gezid0hzbhokbfyt7.jpg"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-04-11T20:49:12.812Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-04-11T20:49:12.812Z"
+                        },
+                        "__v": {
+                          "type": "integer",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Invalid input (e.g. wrong file type or unexpected field)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "data": {
+                      "type": "string",
+                      "example": "Unexpected field"
+                    }
+                  }
                 }
               }
             }
@@ -237,7 +320,21 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "data": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
                 }
               }
             }
@@ -275,7 +372,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found the contact!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Contact"
+                    }
+                  }
                 }
               }
             }
@@ -362,27 +472,51 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated contact!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Contact"
+                    }
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Invalid input (e.g. unsupported photo file format)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid file format. Only .jpg, .png are allowed."
+                    },
+                    "data": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "example": null
+                    }
+                  }
                 }
               }
             }
@@ -425,16 +559,6 @@
         "responses": {
           "204": {
             "description": "Contact successfully deleted (no content returned)"
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
           },
           "404": {
             "description": "Contact not found",

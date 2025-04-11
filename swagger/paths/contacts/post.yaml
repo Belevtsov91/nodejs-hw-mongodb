@@ -37,16 +37,81 @@ responses:
     content:
       application/json:
         schema:
-          $ref: ../../components/schemas/Contact.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a contact!
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: 67f9804898a56efa02270d3a
+                name:
+                  type: string
+                  example: Contact 1
+                phoneNumber:
+                  type: string
+                  example: "+123456789"
+                email:
+                  type: string
+                  example: contact1@example.com
+                isFavourite:
+                  type: boolean
+                  example: false
+                contactType:
+                  type: string
+                  example: personal
+                userId:
+                  type: string
+                  example: 67f97efa98a56efa02270d2e
+                photo:
+                  type: string
+                  example: https://res.cloudinary.com/dftkswewg/image/upload/v1744404552/contacts/zx0gezid0hzbhokbfyt7.jpg
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: 2025-04-11T20:49:12.812Z
+                updatedAt:
+                  type: string
+                  format: date-time
+                  example: 2025-04-11T20:49:12.812Z
+                __v:
+                  type: integer
+                  example: 0
   '400':
-    description: Invalid input
+    description: Invalid input (e.g. wrong file type or unexpected field)
     content:
       application/json:
         schema:
-          $ref: ../../components/schemas/Error.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: Something went wrong
+            data:
+              type: string
+              example: Unexpected field
   '401':
     description: Unauthorized
     content:
       application/json:
         schema:
-          $ref: ../../components/schemas/Error.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Something went wrong
+            data:
+              type: string
+              example: Unauthorized
