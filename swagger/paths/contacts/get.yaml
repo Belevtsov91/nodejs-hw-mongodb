@@ -13,6 +13,7 @@ parameters:
       type: integer
       default: 1
     description: Page number for pagination
+
   - name: perPage
     in: query
     required: false
@@ -20,6 +21,7 @@ parameters:
       type: integer
       default: 10
     description: Number of contacts per page
+
   - name: sortBy
     in: query
     required: false
@@ -27,6 +29,7 @@ parameters:
       type: string
       enum: [name, email]
     description: Sort by name or email in ascending order
+
   - name: sortByDesc
     in: query
     required: false
@@ -34,11 +37,13 @@ parameters:
       type: string
       enum: [name, email]
     description: Sort by name or email in descending order
+
   - name: filter
     in: query
     required: false
     schema:
       type: string
+      example: ""
     description: Fields to include in response, separated by |
 
 responses:
