@@ -25,15 +25,15 @@ parameters:
     required: false
     schema:
       type: string
-      enum: [name, email, createdAt]
-    description: Field to sort by (ascending)
+      enum: [name, email]
+    description: Sort by name or email in ascending order
   - name: sortByDesc
     in: query
     required: false
     schema:
       type: string
-      enum: [name, email, createdAt]
-    description: Field to sort by (descending)
+      enum: [name, email]
+    description: Sort by name or email in descending order
   - name: filter
     in: query
     required: false
