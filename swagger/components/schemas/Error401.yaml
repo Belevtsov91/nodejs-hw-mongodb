@@ -1,0 +1,13 @@
+
+
+type: object
+properties:
+  status:
+    type: integer
+    example: 401
+  message:
+    type: string
+    example: Something went wrong
+  data:
+    type: string
+    example: Invalid email or password
