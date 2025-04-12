@@ -68,11 +68,10 @@
               "type": "string",
               "enum": [
                 "name",
-                "email",
-                "createdAt"
+                "email"
               ]
             },
-            "description": "Field to sort by (ascending)"
+            "description": "Sort by name or email in ascending order"
           },
           {
             "name": "sortByDesc",
@@ -82,20 +81,10 @@
               "type": "string",
               "enum": [
                 "name",
-                "email",
-                "createdAt"
+                "email"
               ]
             },
-            "description": "Field to sort by (descending)"
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Fields to include in response, separated by |"
+            "description": "Sort by name or email in descending order"
           }
         ],
         "responses": {
