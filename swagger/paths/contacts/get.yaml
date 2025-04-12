@@ -38,13 +38,13 @@ parameters:
       enum: [name, email]
     description: Sort by name or email in descending order
 
-  - name: filter
-    in: query
-    required: false
-    schema:
-      type: string
-      example: ""
-    description: Fields to include in response, separated by |
+  #- name: filter
+    #in: query
+    #required: false
+    #schema:
+      #type: string
+      #example: ""
+    #description: Fields to include in response, separated by |
 
 responses:
   '200':
